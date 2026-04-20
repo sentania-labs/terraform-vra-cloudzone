@@ -1,35 +1,26 @@
-# zone example
+# terraform-vra-cloudzone
 
-This is an example on how to create a compute placement zone within a region of an existing cloud account. 
+Terraform module — creates and manages a vRA / Aria Automation cloud zone, associating compute resources (clusters or tag-matched hosts) within a region to a cloud account.
 
-## Getting Started
+## Usage example
 
-There are variables which need to be added to terraform.tfvars. The first are for connecting to the vRealize Automation (vRA) endpoint. There are names of cloud_account, region, already setup in vRA.
+```hcl
+module "lab_zone" {
+  source = "sentania-labs/cloudzone/vra"
 
-* `url` - The URL for the vRealize Automation (vRA) endpoint
-* `refresh_token` - The refresh token for the vRA account
-* `cloud_account` - The name of the cloud account added in vRA
-* `region` - The region within in the cloud account
+  name      = "vcf-lab-wld01-zone"
+  region    = var.region_id
 
-To facilitate adding these variables, a sample tfvars file can be copied first:
-```shell
-cp terraform.tfvars.sample terraform.tfvars
+  compute_ids      = ["cluster-abc123"]
+  placement_policy = "DEFAULT"
+
+  capability_tags = [
+    { key = "cloud", value = "vsphere" }
+  ]
+}
 ```
-To create a zone, a cloud account must be setup in vRA and the region must be identified within which the zone will be created.
 
-Follow these examples for setting up specific cloud accounts:
-
-* Setup [cloud\_account\_aws](../cloud_account_aws/README.md)
-* Setup [cloud\_account\_azure](../cloud_account_azure/README.md)
-* Setup [cloud\_account\_gcp](../cloud_account_gcp/README.md)
-* Setup [cloud\_account\_vsphere](../cloud_account_vsphere/README.md)
-
-Once the information is added to `terraform.tfvars`, the zones can be created via:
-
-```shell
-terraform init
-terraform apply
-```
+See `examples/` for a complete working configuration.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
