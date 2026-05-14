@@ -64,5 +64,5 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_cloud_zone"></a> [cloud\_zone](#output\_cloud\_zone) | n/a |
+| <a name="output_cloud_zone"></a> [cloud\_zone](#output\_cloud\_zone) | The cloud zone name, ID, and external region ID |
 <!-- END_TF_DOCS -->
